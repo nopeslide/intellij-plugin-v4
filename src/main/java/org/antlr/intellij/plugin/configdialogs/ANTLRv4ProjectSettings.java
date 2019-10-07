@@ -1,6 +1,5 @@
 package org.antlr.intellij.plugin.configdialogs;
 
-import com.intellij.ide.util.PropertiesComponent;
 import com.intellij.openapi.options.SearchableConfigurable;
 import com.intellij.openapi.project.Project;
 import org.jetbrains.annotations.Nls;
@@ -8,6 +7,8 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import javax.swing.*;
+
+import static org.antlr.intellij.plugin.configdialogs.ANTLRv4GrammarPropertiesStore.getGrammarProperties;
 
 public class ANTLRv4ProjectSettings implements SearchableConfigurable {
 
@@ -45,7 +46,8 @@ public class ANTLRv4ProjectSettings implements SearchableConfigurable {
 
     @Override
     public boolean isModified() {
-        return configurationForm.isModified(PropertiesComponent.getInstance(project), ANTLRv4GrammarProperties.PROJECT_SETTINGS_PREFIX);
+        ANTLRv4GrammarProperties grammarProperties = getGrammarProperties(project, ANTLRv4GrammarProperties.PROJECT_SETTINGS_PREFIX);
+        return configurationForm.isModified(grammarProperties);
     }
 
     @Override
